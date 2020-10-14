@@ -99,17 +99,19 @@ public class ExtensionClass<T> implements Sortable {
     public T getExtInstance(Class[] argTypes, Object[] args) {
         if (clazz != null) {
             try {
-                if (singleton) { // 如果是单例
-                    if (instance == null) {
-                        synchronized (this) {
-                            if (instance == null) {
-                                instance = ClassUtils.newInstanceWithArgs(clazz, argTypes, args);
-                            }
+
+                // 非单例模式，则直接根据您参数匹配的构造器生成实例
+                if (!singleton){
+                    return ClassUtils.newInstanceWithArgs(clazz, argTypes, args);
+                }
+
+                // 单例模式
+                if (instance == null) {
+                    synchronized (this) {
+                        if (instance == null) {
+                            return ClassUtils.newInstanceWithArgs(clazz, argTypes, args);
                         }
                     }
-                    return instance; // 保留单例
-                } else {
-                    return ClassUtils.newInstanceWithArgs(clazz, argTypes, args);
                 }
             } catch (Exception e) {
                 throw new SofaRpcRuntimeException("create " + clazz.getCanonicalName() + " instance error", e);

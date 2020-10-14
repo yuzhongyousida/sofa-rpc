@@ -201,6 +201,7 @@ public class LocalRegistry extends Registry {
                 if (LOGGER.isInfoEnabled(appName)) {
                     LOGGER.infoWithApp(appName, LogCodes.getLog(LogCodes.INFO_ROUTE_REGISTRY_PUB_START, serviceName));
                 }
+
                 doRegister(appName, serviceName, providerInfo);
 
                 if (LOGGER.isInfoEnabled(appName)) {

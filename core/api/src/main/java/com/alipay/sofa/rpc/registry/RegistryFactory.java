@@ -64,13 +64,18 @@ public class RegistryFactory {
             // 注意：RegistryConfig重写了equals方法，如果多个RegistryConfig属性一样，则认为是一个对象
             Registry registry = ALL_REGISTRIES.get(registryConfig);
             if (registry == null) {
+                // 获取ExtensionClass
                 ExtensionClass<Registry> ext = ExtensionLoaderFactory.getExtensionLoader(Registry.class)
                     .getExtensionClass(registryConfig.getProtocol());
                 if (ext == null) {
                     throw ExceptionUtils.buildRuntime("registry.protocol", registryConfig.getProtocol(),
                         "Unsupported protocol of registry config !");
                 }
+
+                // 获取Registry实例
                 registry = ext.getExtInstance(new Class[] { RegistryConfig.class }, new Object[] { registryConfig });
+
+                // 缓存下来
                 ALL_REGISTRIES.put(registryConfig, registry);
             }
             return registry;

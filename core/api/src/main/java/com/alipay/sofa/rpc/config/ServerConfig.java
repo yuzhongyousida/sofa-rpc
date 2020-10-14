@@ -29,32 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.alipay.sofa.rpc.common.RpcConfigs.getBooleanValue;
-import static com.alipay.sofa.rpc.common.RpcConfigs.getIntValue;
-import static com.alipay.sofa.rpc.common.RpcConfigs.getStringValue;
-import static com.alipay.sofa.rpc.common.RpcOptions.DEFAULT_PROTOCOL;
-import static com.alipay.sofa.rpc.common.RpcOptions.DEFAULT_SERIALIZATION;
-import static com.alipay.sofa.rpc.common.RpcOptions.DEFAULT_TRANSPORT;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_ACCEPTS;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_CONTEXT_PATH;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_DAEMON;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_EPOLL;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_HOST;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_IOTHREADS;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_POOL_ALIVETIME;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_POOL_CORE;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_POOL_MAX;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_POOL_PRE_START;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_POOL_QUEUE;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_POOL_QUEUE_TYPE;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_POOL_TYPE;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_PORT_START;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_STOP_TIMEOUT;
-import static com.alipay.sofa.rpc.common.RpcOptions.SERVER_TELNET;
-import static com.alipay.sofa.rpc.common.RpcOptions.SEVER_ADAPTIVE_PORT;
-import static com.alipay.sofa.rpc.common.RpcOptions.SEVER_AUTO_START;
-import static com.alipay.sofa.rpc.common.RpcOptions.TRANSPORT_PAYLOAD_MAX;
-import static com.alipay.sofa.rpc.common.RpcOptions.TRANSPORT_SERVER_KEEPALIVE;
+import static com.alipay.sofa.rpc.common.RpcConfigs.*;
+import static com.alipay.sofa.rpc.common.RpcOptions.*;
 
 /**
  * 服务端配置

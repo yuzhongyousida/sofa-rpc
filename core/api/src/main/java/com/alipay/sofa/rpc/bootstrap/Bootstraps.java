@@ -42,7 +42,7 @@ public class Bootstraps {
     public static <T> ProviderBootstrap<T> from(ProviderConfig<T> providerConfig) {
         String bootstrap = providerConfig.getBootstrap();
         if (StringUtils.isEmpty(bootstrap)) {
-            // Use default provider bootstrap
+            // Use default provider bootstrap:sofa
             bootstrap = RpcConfigs.getStringValue(RpcOptions.DEFAULT_PROVIDER_BOOTSTRAP);
             providerConfig.setBootstrap(bootstrap);
         }
@@ -50,6 +50,9 @@ public class Bootstraps {
             .getExtension(bootstrap, new Class[] { ProviderConfig.class }, new Object[] { providerConfig });
         return (ProviderBootstrap<T>) providerBootstrap;
     }
+
+
+
 
     /**
      * 引用一个服务

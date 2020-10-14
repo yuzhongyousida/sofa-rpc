@@ -46,7 +46,7 @@ import static com.alipay.sofa.rpc.common.RpcOptions.PROVIDER_REPEATED_EXPORT_LIM
 import static com.alipay.sofa.rpc.common.RpcOptions.PROVIDER_WEIGHT;
 
 /**
- * 服务提供者配置
+ * 服务提供者配置核心类
  *
  * @param <T> the type parameter
  * @author <a href=mailto:zhanggeng.zg@antfin.com>GengZhang</a>
@@ -58,7 +58,9 @@ public class ProviderConfig<T> extends AbstractInterfaceConfig<T, ProviderConfig
      */
     private static final long                                   serialVersionUID    = -3058073881775315962L;
 
-    /*---------- 参数配置项开始 ------------*/
+
+
+    /*---------- 相对比较核心的几个属性 start ------------*/
 
     /**
      * 接口实现类引用
@@ -66,19 +68,25 @@ public class ProviderConfig<T> extends AbstractInterfaceConfig<T, ProviderConfig
     protected transient T                                       ref;
 
     /**
+     * 权重
+     */
+    protected int                                               weight              = getIntValue(PROVIDER_WEIGHT);
+
+    /**
      * 配置的协议列表
      */
-    protected List<ServerConfig>                                server;
+    protected List<ServerConfig>                                server; // ServerConfig：host、port、protocol等核心配置
+
+
+    /*---------- 相对比较核心的几个属性 end ------------*/
+
+
 
     /**
      * 服务发布延迟,单位毫秒，默认0，配置为-1代表spring加载完毕（通过spring才生效）
      */
     protected int                                               delay               = getIntValue(PROVIDER_DELAY);
 
-    /**
-     * 权重
-     */
-    protected int                                               weight              = getIntValue(PROVIDER_WEIGHT);
 
     /**
      * 包含的方法
@@ -136,12 +144,12 @@ public class ProviderConfig<T> extends AbstractInterfaceConfig<T, ProviderConfig
     /*---------- 参数配置项结束 ------------*/
 
     /**
-     * 方法名称：是否可调用
+     * 方法名称：是否可调用  （加上transient关键字不让被持久化到磁盘或者通过网络传递的原因是啥呢？ 感觉这个属性信息没那么敏感啊。。。）
      */
     protected transient volatile ConcurrentMap<String, Boolean> methodsLimit;
 
     /**
-     * 服务提供者启动类
+     * 服务提供者启动类（感觉这个属性信息没那么敏感啊，加上transient关键字的原因可能是这个属性没必要传递，在内存中即可。。。）
      */
     protected transient ProviderBootstrap                       providerBootstrap;
 

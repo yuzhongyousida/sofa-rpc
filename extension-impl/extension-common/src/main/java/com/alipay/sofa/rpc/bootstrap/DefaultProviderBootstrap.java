@@ -90,22 +90,24 @@ public class DefaultProviderBootstrap<T> extends ProviderBootstrap<T> {
 
     @Override
     public void export() {
-        if (providerConfig.getDelay() > 0) { // 延迟加载,单位毫秒
-            Thread thread = factory.newThread(new Runnable() {
+        // 延迟加载,单位毫秒
+        final int delay = providerConfig.getDelay();
+
+        if (delay > 0) {
+            factory.newThread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(providerConfig.getDelay());
+                        Thread.sleep(delay);
                     } catch (Throwable ignore) { // NOPMD
                     }
-                    doExport();
                 }
-            });
-            thread.start();
-        } else {
-            doExport();
+            }).start();
         }
+
+        doExport();
     }
+
 
     private void doExport() {
         if (exported) {
@@ -119,6 +121,7 @@ public class DefaultProviderBootstrap<T> extends ProviderBootstrap<T> {
 
         //key  is the protocol of server,for concurrent safe
         Map<String, Boolean> hasExportedInCurrent = new ConcurrentHashMap<String, Boolean>();
+
         // 将处理器注册到server
         List<ServerConfig> serverConfigs = providerConfig.getServer();
         for (ServerConfig serverConfig : serverConfigs) {
@@ -160,6 +163,7 @@ public class DefaultProviderBootstrap<T> extends ProviderBootstrap<T> {
         try {
             // 构造请求调用器
             providerProxyInvoker = new ProviderProxyInvoker(providerConfig);
+
             // 初始化注册中心
             if (providerConfig.isRegister()) {
                 List<RegistryConfig> registryConfigs = providerConfig.getRegistry();
@@ -187,8 +191,9 @@ public class DefaultProviderBootstrap<T> extends ProviderBootstrap<T> {
                 }
             }
 
-            // 注册到注册中心
             providerConfig.setConfigListener(new ProviderAttributeListener());
+
+            // 注册到注册中心
             register();
         } catch (Exception e) {
             decrementCounter(hasExportedInCurrent);
